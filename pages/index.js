@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import Head from 'next/head';
 import Container from '../components/Container';
+import { LinkedInIcon, XIcon, YouTubeIcon } from '../components/SocialIcons';
 
 export async function getStaticProps() {
   const postsDir = path.join(process.cwd(), 'content/blog');
@@ -39,9 +40,33 @@ export default function Home({ posts }) {
               </nav>
             </div>
             <div className="flex gap-4">
-              <a href="https://www.linkedin.com/in/kavipather/" target="_blank" rel="noopener noreferrer" className="hover:text-accent">LinkedIn</a>
-              <a href="https://x.com/kavi_pather" target="_blank" rel="noopener noreferrer" className="hover:text-accent">X</a>
-              <a href="https://youtube.com/channel/UChMl5Ua89sbb9ie10bVbHTQ" target="_blank" rel="noopener noreferrer" className="hover:text-accent">YouTube</a>
+              <a
+                href="https://www.linkedin.com/in/kavipather/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="hover:text-accent"
+              >
+                <LinkedInIcon className="w-6 h-6" />
+              </a>
+              <a
+                href="https://x.com/kavi_pather"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="X"
+                className="hover:text-accent"
+              >
+                <XIcon className="w-6 h-6" />
+              </a>
+              <a
+                href="https://youtube.com/channel/UChMl5Ua89sbb9ie10bVbHTQ"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                className="hover:text-accent"
+              >
+                <YouTubeIcon className="w-6 h-6" />
+              </a>
             </div>
           </div>
         </header>

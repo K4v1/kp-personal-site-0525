@@ -25,6 +25,7 @@ This project uses Next.js 15 and Tailwind CSS to generate a fully static website
 - `pages/blog/[slug].js` – Dynamic route that converts Markdown to HTML at build time.
 - `public/images/` – Static assets such as `hero.jpg`.
 - `documentation/` – This folder containing setup instructions, design guidelines and prompts.
+- `components/SocialIcons.js` – Inline Heroicons used for social media links.
 
 ## Tailwind Configuration
 
