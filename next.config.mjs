@@ -1,8 +1,8 @@
-const withMDX = require('@next/mdx')({ extension: /\.mdx?$/ })
+import withMDX from '@next/mdx';
 
-module.exports = withMDX({
+export default withMDX({
   output: 'export',
   trailingSlash: true,
   distDir: 'docs',
   pageExtensions: ['js', 'jsx', 'mdx']
-})
+});

@@ -1,6 +1,6 @@
 # Next.js Static Personal Site Setup
 
-This guide describes how to create a static personal website with Next.js 14, MDX, and Tailwind CSS. The site exports to the `docs` folder so it can be hosted on GitHub Pages.
+This guide describes how to create a static personal website with Next.js 15, MDX, and Tailwind CSS. The site exports to the `docs` folder so it can be hosted on GitHub Pages.
 
 ## Goals
 
@@ -39,15 +39,16 @@ This guide describes how to create a static personal website with Next.js 14, MD
    ```
 
 3. **Next.js configuration**
-   `next.config.js` should wrap the config with the MDX plugin and enable static export:
+   `next.config.mjs` should use ES modules syntax and wrap the config with the MDX plugin to enable static export:
    ```js
-   const withMDX = require('@next/mdx')({ extension: /\.mdx?$/ })
-   module.exports = withMDX({
+   import withMDX from '@next/mdx';
+
+   export default withMDX({
      output: 'export',
      trailingSlash: true,
      distDir: 'docs',
      pageExtensions: ['js','jsx','mdx']
-   })
+   });
    ```
 
 4. **File structure**
@@ -63,7 +64,7 @@ This guide describes how to create a static personal website with Next.js 14, MD
    ├ public/
    ├ styles/
    │  └ globals.css
-   ├ next.config.js
+   ├ next.config.mjs
    ├ tailwind.config.js
    └ package.json
    ```
