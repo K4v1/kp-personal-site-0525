@@ -1,0 +1,51 @@
+[
+  {
+    "title": "Innovation & Design Thinking for Actuaries and Data Scientists",
+    "description": "20-minute conference talk, ProActuary Summit 2022 (YouTube)",
+    "url": "https://www.youtube.com/watch?v=8nLEgnO0ezw",
+    "category": "conference talk",
+    "year": 2022
+  },
+  {
+    "title": "Models, Mistakes & Mayhem – Managing Model Risk",
+    "description": "2018 presentation PDF, Actuarial Society conference",
+    "url": "https://www.actuarialsociety.org.za/download/models-mistakes-mayhem-kavi-pather-idelia-hoberg-2018/",
+    "category": "article",
+    "year": 2018
+  },
+  {
+    "title": "Machine-Learning Telematics Will Redefine Vehicle Insurance in SA",
+    "description": "2017 press article from Insurance Gateway",
+    "url": "https://www.insurancegateway.co.za/ShorttermConsumers/PressRoom/ViewPress/Irn=12583&URL=Sensory+technology+to+redefine+vehicle+insurance+in+South+Africa",
+    "category": "press article",
+    "year": 2017
+  },
+  {
+    "title": "Pivoting from Data Expert to Innovation Leader",
+    "description": "2022 alumni spotlight from Carnegie Mellon University",
+    "url": "https://www.cmu.edu/iii/about/news/2022/alumni-spotlight-pather-pivoting-from-data-expert-to-innovation-leader.html",
+    "category": "article",
+    "year": 2022
+  },
+  {
+    "title": "Improving Customer Experience through Artificial Intelligence",
+    "description": "2021 thought leadership article in PECB Insights",
+    "url": "https://insights.pecb.com/improving-customer-experience-through-artificial-intelligence/",
+    "category": "article",
+    "year": 2021
+  },
+  {
+    "title": "IFRS 17 Panel Discussion",
+    "description": "59-minute podcast from the Actuarial Society Short-Term Insurance Seminar 2018",
+    "url": "https://iono.fm/e/601627",
+    "category": "podcast",
+    "year": 2018
+  },
+  {
+    "title": "Business Talk Interview",
+    "description": "15-minute podcast on the business impact of AI (Dec 2023)",
+    "url": "https://youtu.be/B3Hc_auajfA",
+    "category": "podcast",
+    "year": 2023
+  }
+]
