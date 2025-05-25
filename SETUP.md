@@ -22,12 +22,14 @@ This guide describes how to create a static personal website with Next.js 15, MD
    npm install tailwindcss postcss autoprefixer
    npm install @next/mdx gray-matter
    ```
+   Add `"type": "module"` to `package.json` so Node treats your project as ESM.
 
 2. **Configure Tailwind**
    ```bash
    npx tailwindcss init -p
    ```
-   Edit `tailwind.config.js` so `content` includes:
+   Rename `tailwind.config.js` to `tailwind.config.cjs` and `postcss.config.js` to `postcss.config.cjs`.
+   Edit `tailwind.config.cjs` so `content` includes:
    ```js
    ['./pages/**/*.{js,jsx,mdx}', './components/**/*.{js,jsx,mdx}']
    ```
@@ -39,7 +41,7 @@ This guide describes how to create a static personal website with Next.js 15, MD
    ```
 
 3. **Next.js configuration**
-   `next.config.mjs` should use ES modules syntax and wrap the config with the MDX plugin to enable static export:
+  Rename `next.config.js` to `next.config.mjs`. The file should use ES modules syntax and wrap the config with the MDX plugin to enable static export:
    ```js
    import withMDX from '@next/mdx';
 
@@ -65,7 +67,8 @@ This guide describes how to create a static personal website with Next.js 15, MD
    ├ styles/
    │  └ globals.css
    ├ next.config.mjs
-   ├ tailwind.config.js
+   ├ tailwind.config.cjs
+   ├ postcss.config.cjs
    └ package.json
    ```
 
