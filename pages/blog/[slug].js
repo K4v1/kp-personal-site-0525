@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import Container from '../../components/Container';
 
 export async function getStaticPaths() {
   const postsDir = path.join(process.cwd(), 'content/blog');
@@ -33,9 +34,11 @@ export async function getStaticProps({ params }) {
 
 export default function PostPage({ frontMatter, html }) {
   return (
-    <article className="prose mx-auto p-8">
-      <h1>{frontMatter.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: html }} />
-    </article>
+    <Container>
+      <article className="prose mx-auto py-8">
+        <h1>{frontMatter.title}</h1>
+        <div dangerouslySetInnerHTML={{ __html: html }} />
+      </article>
+    </Container>
   );
 }
