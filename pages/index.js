@@ -27,22 +27,20 @@ export default function Home({ posts }) {
       </Head>
       <Container>
         <header className="pt-4">
-          <div className="flex justify-between items-start">
-            <div>
-              <h1 className="mt-8 mb-4 text-3xl font-bold">Kavi Pather</h1>
-              <nav className="mt-2">
-                <ul className="flex gap-6 sm:flex-col sm:items-start">
-                  <li><a href="#" className="mr-6 hover:text-blue-700 underline">Blog</a></li>
-                  <li><a href="#" className="mr-6 hover:text-blue-700 underline">Media Links</a></li>
-                  <li><a href="#" className="hover:text-blue-700 underline">CV</a></li>
-                </ul>
-              </nav>
-            </div>
-            <div className="flex gap-4">
-              <a href="https://www.linkedin.com/in/kavipather/" target="_blank" rel="noopener noreferrer" className="hover:text-accent">LinkedIn</a>
-              <a href="https://x.com/kavi_pather" target="_blank" rel="noopener noreferrer" className="hover:text-accent">X</a>
-              <a href="https://youtube.com/channel/UChMl5Ua89sbb9ie10bVbHTQ" target="_blank" rel="noopener noreferrer" className="hover:text-accent">YouTube</a>
-            </div>
+          <div className="flex justify-between items-center">
+            <h1 className="mt-8 mb-4 text-3xl font-bold">Kavi Pather</h1>
+            <nav className="mt-8">
+              <ul className="flex gap-6">
+                <li><a href="#" className="hover:text-blue-700 underline">Blog</a></li>
+                <li><a href="#" className="hover:text-blue-700 underline">Media Links</a></li>
+                <li><a href="#" className="hover:text-blue-700 underline">CV</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div className="flex justify-end gap-4 mt-2">
+            <a href="https://www.linkedin.com/in/kavipather/" target="_blank" rel="noopener noreferrer" className="hover:text-accent">LinkedIn</a>
+            <a href="https://x.com/kavi_pather" target="_blank" rel="noopener noreferrer" className="hover:text-accent">X</a>
+            <a href="https://youtube.com/channel/UChMl5Ua89sbb9ie10bVbHTQ" target="_blank" rel="noopener noreferrer" className="hover:text-accent">YouTube</a>
           </div>
         </header>
       </Container>
