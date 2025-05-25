@@ -24,6 +24,7 @@ This project uses Next.js 15 and Tailwind CSS to generate a fully static website
 - `pages/index.js` – Single page home layout.
 - `pages/index.js` defines the header where the navigation menu now sits to the
   right of the page title with items displayed horizontally.
+- Social media links in the header use inline Heroicons instead of text labels.
 - `pages/blog/[slug].js` – Dynamic route that converts Markdown to HTML at build time.
 - `public/images/` – Static assets such as `hero.jpg`.
 - `documentation/` – This folder containing setup instructions, design guidelines and prompts.

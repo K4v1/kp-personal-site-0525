@@ -4,6 +4,59 @@ import matter from 'gray-matter';
 import Head from 'next/head';
 import Container from '../components/Container';
 
+function LinkedInIcon(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M13.828 10.172a4 4 0 010 5.656l-1.414 1.414a4 4 0 01-5.656 0 4 4 0 010-5.656l1.414-1.414" />
+      <path d="M10.172 13.828a4 4 0 010-5.656l1.414-1.414a4 4 0 015.656 0 4 4 0 010 5.656l-1.414 1.414" />
+    </svg>
+  );
+}
+
+function XIcon(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  );
+}
+
+function YouTubeIcon(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <rect x="2" y="5" width="20" height="14" rx="2" />
+      <path fill="currentColor" d="M10 15l5-3-5-3v6z" />
+    </svg>
+  );
+}
+
 export async function getStaticProps() {
   const postsDir = path.join(process.cwd(), 'content/blog');
   const filenames = fs.readdirSync(postsDir).filter((n) => n.endsWith('.md'));
@@ -38,9 +91,33 @@ export default function Home({ posts }) {
             </nav>
           </div>
           <div className="flex justify-end gap-4 mt-2">
-            <a href="https://www.linkedin.com/in/kavipather/" target="_blank" rel="noopener noreferrer" className="hover:text-accent">LinkedIn</a>
-            <a href="https://x.com/kavi_pather" target="_blank" rel="noopener noreferrer" className="hover:text-accent">X</a>
-            <a href="https://youtube.com/channel/UChMl5Ua89sbb9ie10bVbHTQ" target="_blank" rel="noopener noreferrer" className="hover:text-accent">YouTube</a>
+            <a
+              href="https://www.linkedin.com/in/kavipather/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-accent"
+              aria-label="LinkedIn"
+            >
+              <LinkedInIcon className="w-6 h-6" />
+            </a>
+            <a
+              href="https://x.com/kavi_pather"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-accent"
+              aria-label="X"
+            >
+              <XIcon className="w-6 h-6" />
+            </a>
+            <a
+              href="https://youtube.com/channel/UChMl5Ua89sbb9ie10bVbHTQ"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-accent"
+              aria-label="YouTube"
+            >
+              <YouTubeIcon className="w-6 h-6" />
+            </a>
           </div>
         </header>
       </Container>
