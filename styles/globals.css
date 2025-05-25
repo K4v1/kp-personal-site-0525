@@ -4,5 +4,9 @@
 @tailwind utilities;
 
 body {
-  @apply font-sans text-black bg-white;
+  @apply font-sans text-black bg-white text-lg leading-relaxed;
+}
+
+img {
+  @apply my-6;
 }
