@@ -32,4 +32,6 @@ This project uses Next.js 15 and Tailwind CSS to generate a fully static website
 
 Content is wrapped in a `Container` component (`components/Container.js`) which constrains width to `max-w-3xl` and adds horizontal padding (`px-6 sm:px-4`).
 
+All pages share a `Footer` component (`components/Footer.js`) which is rendered in `_app.js`.
+
 Keep this document up to date whenever configuration or structure changes.
