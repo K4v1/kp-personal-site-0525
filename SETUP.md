@@ -20,7 +20,6 @@ This guide describes how to create a static personal website with Next.js 15, MD
    npm init -y
    npm install next@latest react react-dom
    npm install tailwindcss postcss autoprefixer
-   npm install @next/mdx gray-matter
    ```
    Add `"type": "module"` to `package.json` so Node treats your project as ESM.
 
@@ -41,16 +40,13 @@ This guide describes how to create a static personal website with Next.js 15, MD
    ```
 
 3. **Next.js configuration**
-  Rename `next.config.js` to `next.config.mjs`. The file should use ES modules syntax and wrap the config with the MDX plugin to enable static export:
+  Rename `next.config.js` to `next.config.mjs` and enable static export:
    ```js
-   import withMDX from '@next/mdx';
-
-   export default withMDX({
+   export default {
      output: 'export',
      trailingSlash: true,
-     distDir: 'docs',
-     pageExtensions: ['js','jsx','mdx']
-   });
+     distDir: 'docs'
+   };
    ```
 
 4. **File structure**
@@ -58,7 +54,7 @@ This guide describes how to create a static personal website with Next.js 15, MD
    personal-site/
    ├ content/
    │  └ posts/
-   │     └ hello-universe.mdx
+   │     └ hello-universe.js
    ├ pages/
    │  ├ index.js
    │  └ posts/
@@ -75,24 +71,28 @@ This guide describes how to create a static personal website with Next.js 15, MD
 5. **Landing page**
    `pages/index.js` should render an `h1` of "Hello World" and link to `/posts/hello-universe`.
 
-6. **Sample MDX post**
-   `content/posts/hello-universe.mdx`:
-   ```mdx
-   ---
-   title: Hello Universe
-   slug: hello-universe
-   ---
+6. **Sample post component**
+   `content/posts/hello-universe.js`:
+   ```jsx
+   export const frontMatter = {
+     title: 'Hello Universe',
+     slug: 'hello-universe'
+   };
 
-   # Hello Universe
-
-   This is my first blog post, written in MDX!
+   export default function Post() {
+     return (
+       <>
+         <h1>Hello Universe</h1>
+         <p>This is my first blog post, written in MDX!</p>
+       </>
+     );
+   }
    ```
 
 7. **Dynamic post route** (`pages/posts/[slug].js`)
-   - Use **gray-matter** to parse front matter.
    - `getStaticPaths` reads filenames in `content/posts` to build slugs.
-   - `getStaticProps` loads and parses the matching `.mdx` file.
-   - Render the MDX content using the runtime from `@next/mdx`.
+   - `getStaticProps` dynamically imports the matching `.js` file and converts it to HTML with `ReactDOMServer`.
+   - The page renders this HTML via `dangerouslySetInnerHTML`.
 
 8. **Package scripts**
    Add to `package.json`:

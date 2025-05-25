@@ -1,8 +1,5 @@
-import withMDX from '@next/mdx';
-
-export default withMDX({
+export default {
   output: 'export',
   trailingSlash: true,
-  distDir: 'docs',
-  pageExtensions: ['js', 'jsx', 'mdx']
-});
+  distDir: 'docs'
+};
