@@ -121,7 +121,8 @@ export default function Home({ posts }) {
           </div>
         </header>
       </Container>
-      <img src="/images/IMG_4753.jpeg" alt="Cityscape" className="w-full h-64 object-cover" />
+      {/* use a relative path so the image works on GitHub Pages */}
+      <img src="images/IMG_4753.jpeg" alt="Cityscape" className="w-full h-64 object-cover" />
       <Container>
         <main className="space-y-12">
           <section className="py-8">

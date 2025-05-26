@@ -37,7 +37,7 @@ Build the home page:
 •Directly below the header
 •Static (no slideshow or parallax)
 - create a folder for images
-- have the hero image link to: hero.jpg (will upload later); link to folder that will contain images
+- have the hero image link to: IMG_4753.jpeg; link to folder that will contain images
 
 ⸻
 
