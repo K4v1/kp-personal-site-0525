@@ -1,24 +1,22 @@
 {
   "name": "kp-personal-site-0525",
   "version": "1.0.0",
+  "private": true,
   "description": "New personal website",
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "next start",
+    "lint": "next lint"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
-    "autoprefixer": "latest",
-    "gray-matter": "latest",
-    "next": "latest",
-    "postcss": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "tailwindcss": "latest"
+    "gray-matter": "^4.0.3",
+    "next": "^15.3.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

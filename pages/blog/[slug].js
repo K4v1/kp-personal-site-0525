@@ -16,9 +16,10 @@ function markdownToHtml(md) {
   return md
     .split('\n')
     .map((line) => {
-      if (line.startsWith('# ')) return `<h1>${line.slice(2)}</h1>`;
+      if (line.startsWith('# ')) return `<h1 class="mt-4 mb-3 text-3xl font-bold">${line.slice(2)}</h1>`;
+      if (line.startsWith('## ')) return `<h2 class="mt-6 mb-3 text-2xl font-semibold">${line.slice(3)}</h2>`;
       if (!line.trim()) return '';
-      return `<p>${line}</p>`;
+      return `<p class="mb-4">${line}</p>`;
     })
     .join('\n');
 }
@@ -36,7 +37,7 @@ export default function PostPage({ frontMatter, html }) {
   return (
     <Container>
       <article className="prose mx-auto py-8">
-        <h1>{frontMatter.title}</h1>
+        <h1 className="mt-4 mb-3 text-3xl font-bold">{frontMatter.title}</h1>
         <div dangerouslySetInnerHTML={{ __html: html }} />
       </article>
     </Container>
