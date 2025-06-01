@@ -64,6 +64,9 @@ export default function Layout({ children, title = 'Kavi Pather', fullWidth = fa
                     Home
                   </Link>
                 )}
+                <Link href="/blog" className="hover:text-accent">
+                  Blog
+                </Link>
                 <Link href="/media-links" className="hover:text-accent">
                   Media
                 </Link>
