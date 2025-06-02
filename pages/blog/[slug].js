@@ -15,9 +15,17 @@ export async function getStaticPaths() {
 }
 
 function markdownToHtml(md) {
-  return md
-    .split('\n')
+  const lines = md.split('\n');
+  let skipNextH1 = true; // Skip the first H1 since it's shown in the header
+  
+  return lines
     .map((line) => {
+      // Skip the first H1 header since we show it in the page header
+      if (line.startsWith('# ') && skipNextH1) {
+        skipNextH1 = false; // Only skip the first one
+        return '';
+      }
+      
       // Headers
       if (line.startsWith('# ')) return `<h1 class="text-4xl font-bold mb-6">${line.slice(2)}</h1>`;
       if (line.startsWith('## ')) return `<h2 class="text-2xl font-semibold mt-8 mb-4">${line.slice(3)}</h2>`;

@@ -1,11 +1,22 @@
 /** @type {import("next").NextConfig} */
-const config = {
+const nextConfig = {
   output: "export",
   trailingSlash: true,
   distDir: "docs",
   experimental: {
-    // Add experimental features if needed
+    esmExternals: "loose"
+  },
+  webpack: (config) => {
+    // Handle ESM modules
+    config.resolve = {
+      ...config.resolve,
+      extensionAlias: {
+        '.js': ['.js', '.ts', '.tsx'],
+        '.jsx': ['.jsx', '.tsx']
+      }
+    };
+    return config;
   }
 };
 
-export default config;
+export default nextConfig;

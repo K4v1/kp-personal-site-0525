@@ -22,7 +22,8 @@ export async function loadBlogPosts() {
     .map((name) => {
       const file = fs.readFileSync(path.join(postsDir, name), 'utf8');
       const { data } = matter(file);
-      return { ...data, date: String(data.date) };
+      const slug = name.replace(/\.md$/, '');
+      return { ...data, slug, date: String(data.date) };
     })
     .sort((a, b) => new Date(b.date) - new Date(a.date));
     

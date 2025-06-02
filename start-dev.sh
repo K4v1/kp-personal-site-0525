@@ -17,7 +17,7 @@ trap 'handle_error $? $LINENO' ERR
 # Function to clean up
 cleanup() {
     echo "Cleaning up previous build artifacts..."
-    rm -rf .next docs node_modules package-lock.json next.config.* package.json
+    rm -rf .next docs node_modules package-lock.json next.config.* package.json postcss.config.* tailwind.config.*
 }
 
 # Function to setup build directories
@@ -41,6 +41,7 @@ install_deps() {
     "dev": "next dev -p ${PORT:-3000}",
     "build": "next build",
     "start": "next start",
+    "serve": "npx serve docs -p 3000",
     "lint": "next lint"
   },
   "keywords": [],
@@ -48,9 +49,14 @@ install_deps() {
   "license": "ISC",
   "dependencies": {
     "gray-matter": "^4.0.3",
-    "next": "^15.3.2",
+    "next": "^14.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "@tailwindcss/typography": "^0.5.10",
+    "tailwindcss": "^3.4.1",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "serve": "^14.2.1"
   }
 }
 EOF
@@ -62,16 +68,82 @@ setup_nextjs_config() {
     echo "Setting up Next.js configuration..."
     cat > next.config.mjs << 'EOF'
 /** @type {import("next").NextConfig} */
-const config = {
+const nextConfig = {
   output: "export",
   trailingSlash: true,
   distDir: "docs",
   experimental: {
-    // Add experimental features if needed
+    esmExternals: "loose"
+  },
+  webpack: (config) => {
+    // Handle ESM modules
+    config.resolve = {
+      ...config.resolve,
+      extensionAlias: {
+        '.js': ['.js', '.ts', '.tsx'],
+        '.jsx': ['.jsx', '.tsx']
+      }
+    };
+    return config;
   }
 };
 
-export default config;
+export default nextConfig;
+EOF
+
+    # Create PostCSS config
+    cat > postcss.config.mjs << 'EOF'
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+EOF
+
+    # Create Tailwind config
+    cat > tailwind.config.mjs << 'EOF'
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './content/**/*.{md,mdx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        accent: '#10A37F',
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+      },
+      spacing: {
+        xl: '4rem',
+        lg: '2rem',
+      },
+      maxWidth: {
+        prose: '65ch',
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            'code::before': {
+              content: '""'
+            },
+            'code::after': {
+              content: '""'
+            }
+          }
+        }
+      }
+    },
+  },
+  plugins: [
+    '@tailwindcss/typography'
+  ],
+}
 EOF
 }
 
@@ -85,41 +157,41 @@ validate_env() {
     [ -d "components" ] || echo "Warning: components directory missing"
 }
 
-# Function to start development server
-start_dev() {
-    echo "Starting development server..."
-    npm run dev
-}
-
-# Function to build static site
-build_static() {
+# Function to build and serve static site
+serve_static() {
     echo "Building static site..."
     npm run build
+    echo "Starting static file server on port 3000..."
+    npm run serve
 }
 
-# Main script
-case "$1" in
-    "build")
-        cleanup
-        validate_env
-        install_deps
-        setup_build_dirs
-        setup_nextjs_config
-        build_static
-        echo "Static site built successfully in the 'docs' directory"
+# Function to show usage
+show_usage() {
+    echo "Usage: $0 [dev|static]"
+    echo "  dev    - Start development server (default)"
+    echo "  static - Build and serve static site from docs directory"
+}
+
+# Main execution
+echo "Starting development environment setup..."
+
+cleanup
+setup_build_dirs
+install_deps
+setup_nextjs_config
+validate_env
+
+# Handle command line argument
+case "${1:-dev}" in
+    "dev")
+        echo "Starting Next.js development server..."
+        npm run dev
         ;;
-    "dev" | "")
-        cleanup
-        validate_env
-        install_deps
-        setup_build_dirs
-        setup_nextjs_config
-        start_dev
+    "static")
+        serve_static
         ;;
     *)
-        echo "Usage: $0 [build|dev]"
-        echo "  build - Build the static site"
-        echo "  dev   - Start development server (default)"
+        show_usage
         exit 1
         ;;
 esac 
