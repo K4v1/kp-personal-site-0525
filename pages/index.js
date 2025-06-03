@@ -40,7 +40,7 @@ function Home({ posts = [] }) {
               <p className="text-gray-600">No updates available at the moment.</p>
             )}
           </section>
-        </div>
+            </div>
       </Container>
     </Layout>
   );
