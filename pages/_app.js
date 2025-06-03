@@ -1,7 +1,8 @@
-import Footer from '../components/Footer';
-import Head from 'next/head';
+require('../styles/globals.css');
+const Footer = require('../components/Footer');
+const Head = require('next/head');
 
-export default function App({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   return (
     <>
       <Head>
@@ -12,3 +13,5 @@ export default function App({ Component, pageProps }) {
     </>
   );
 }
+
+module.exports = App;

@@ -35,14 +35,14 @@ install_deps() {
   "name": "kp-personal-site-0525",
   "version": "1.0.0",
   "private": true,
-  "description": "New personal website",
-  "type": "module",
+  "description": "New personal website - Using CommonJS modules exclusively",
   "scripts": {
     "dev": "next dev -p ${PORT:-3000}",
     "build": "next build",
     "start": "next start",
     "serve": "npx serve docs -p 3000",
-    "lint": "next lint"
+    "lint": "next lint",
+    "clean": "rm -rf .next docs"
   },
   "keywords": [],
   "author": "",
@@ -66,45 +66,68 @@ EOF
 # Function to ensure correct Next.js configuration
 setup_nextjs_config() {
     echo "Setting up Next.js configuration..."
-    cat > next.config.mjs << 'EOF'
-/** @type {import("next").NextConfig} */
+    cat > next.config.js << 'EOF'
+/**
+ * @fileoverview Next.js configuration file
+ * 
+ * NOTE: This project uses CommonJS modules.
+ * Always use require() and module.exports syntax.
+ * Do not use import/export syntax.
+ */
+
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",
+  output: 'export',
   trailingSlash: true,
-  distDir: "docs",
-  experimental: {
-    esmExternals: "loose"
+  distDir: 'docs',
+  images: {
+    unoptimized: true,
   },
-  webpack: (config) => {
-    // Handle ESM modules
-    config.resolve = {
-      ...config.resolve,
-      extensionAlias: {
-        '.js': ['.js', '.ts', '.tsx'],
-        '.jsx': ['.jsx', '.tsx']
-      }
-    };
+  webpack: (config, { isServer }) => {
+    // Handle fs module for static export
+    if (!isServer) {
+      config.resolve.fallback = {
+        fs: false,
+        path: false,
+      };
+    }
     return config;
-  }
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
 EOF
 
     # Create PostCSS config
-    cat > postcss.config.mjs << 'EOF'
-export default {
+    cat > postcss.config.js << 'EOF'
+/**
+ * @fileoverview PostCSS configuration file
+ * 
+ * NOTE: This project uses CommonJS modules.
+ * Always use require() and module.exports syntax.
+ * Do not use import/export syntax.
+ */
+
+module.exports = {
   plugins: {
     tailwindcss: {},
     autoprefixer: {},
   },
-}
+};
 EOF
 
     # Create Tailwind config
-    cat > tailwind.config.mjs << 'EOF'
+    cat > tailwind.config.js << 'EOF'
+/**
+ * @fileoverview Tailwind CSS configuration file
+ * 
+ * NOTE: This project uses CommonJS modules.
+ * Always use require() and module.exports syntax.
+ * Do not use import/export syntax.
+ */
+
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -141,9 +164,9 @@ export default {
     },
   },
   plugins: [
-    '@tailwindcss/typography'
+    require('@tailwindcss/typography')
   ],
-}
+};
 EOF
 }
 

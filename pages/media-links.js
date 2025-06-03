@@ -1,6 +1,6 @@
-import Head from 'next/head';
-import Container from '../components/Container';
-import Layout from '../components/Layout';
+const Head = require('next/head');
+const Container = require('../components/Container');
+const Layout = require('../components/Layout');
 
 const mediaLinks = [
   {
@@ -65,7 +65,7 @@ const mediaLinks = [
   }
 ];
 
-export default function MediaLinks() {
+function MediaLinks() {
   return (
     <Layout title="Media Links - Kavi Pather">
       <div className="container-custom">
@@ -101,4 +101,6 @@ export default function MediaLinks() {
       </div>
     </Layout>
   );
-} 
+}
+
+module.exports = MediaLinks; 

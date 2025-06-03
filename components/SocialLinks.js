@@ -1,44 +1,48 @@
-import { GitHubIcon, LinkedInIcon, XIcon, YouTubeIcon } from './Icons';
+const { TwitterIcon, LinkedInIcon, EmailIcon, YouTubeIcon } = require('./Icons');
 
-export default function SocialLinks() {
+function SocialLinks() {
+  const links = [
+    {
+      name: 'Twitter',
+      href: 'https://x.com/kavi_pather',
+      icon: TwitterIcon,
+    },
+    {
+      name: 'LinkedIn',
+      href: 'https://www.linkedin.com/in/kavipather/',
+      icon: LinkedInIcon,
+    },
+    {
+      name: 'YouTube',
+      href: 'https://www.youtube.com/@kavipather2638',
+      icon: YouTubeIcon,
+    },
+    {
+      name: 'Email',
+      href: 'mailto:gardens_camber1f@icloud.com',
+      icon: EmailIcon,
+    },
+  ];
+
   return (
-    <div className="flex justify-end gap-2">
-      <a
-        href="https://github.com/k4v1"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-gray-600 hover:text-accent"
-        aria-label="GitHub"
-      >
-        <GitHubIcon />
-      </a>
-      <a
-        href="https://www.linkedin.com/in/kavipather/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-gray-600 hover:text-accent"
-        aria-label="LinkedIn"
-      >
-        <LinkedInIcon />
-      </a>
-      <a
-        href="https://x.com/kavi_pather"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-gray-600 hover:text-accent"
-        aria-label="X"
-      >
-        <XIcon />
-      </a>
-      <a
-        href="https://youtube.com/channel/UChMl5Ua89sbb9ie10bVbHTQ"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-gray-600 hover:text-accent"
-        aria-label="YouTube"
-      >
-        <YouTubeIcon />
-      </a>
+    <div className="flex space-x-4 justify-end">
+      {links.map((link) => {
+        const Icon = link.icon;
+        return (
+          <a
+            key={link.name}
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-accent transition-colors"
+            aria-label={link.name}
+          >
+            <Icon className="h-5 w-5" />
+          </a>
+        );
+      })}
     </div>
   );
-} 
+}
+
+module.exports = SocialLinks; 

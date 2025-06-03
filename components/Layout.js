@@ -1,10 +1,10 @@
-import Head from 'next/head';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import Container from './Container';
-import SocialLinks from './SocialLinks';
+const Head = require('next/head');
+const Link = require('next/link');
+const { useRouter } = require('next/router');
+const Container = require('./Container');
+const SocialLinks = require('./SocialLinks');
 
-export default function Layout({ children, title = 'Kavi Pather', fullWidth = false }) {
+function Layout({ children, title = 'Kavi Pather', fullWidth = false }) {
   const router = useRouter();
   const isHome = router.pathname === '/';
 
@@ -16,7 +16,7 @@ export default function Layout({ children, title = 'Kavi Pather', fullWidth = fa
 
       <div className="min-h-screen bg-white">
         <header className="border-b border-gray-200">
-          <Container noPadding>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="pt-4">
               <SocialLinks />
             </div>
@@ -38,7 +38,7 @@ export default function Layout({ children, title = 'Kavi Pather', fullWidth = fa
                 </Link>
               </div>
             </nav>
-          </Container>
+          </div>
         </header>
 
         <Container fullWidth={fullWidth}>
@@ -47,4 +47,6 @@ export default function Layout({ children, title = 'Kavi Pather', fullWidth = fa
       </div>
     </>
   );
-} 
+}
+
+module.exports = Layout; 

@@ -1,62 +1,12 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import Layout from '../../components/Layout';
-import Container from '../../components/Container';
-import { formatDate } from '../../utils/date';
+const fs = require('fs');
+const path = require('path');
+const matter = require('gray-matter');
+const { marked } = require('marked');
+const Layout = require('../../components/Layout');
+const Container = require('../../components/Container');
+const formatDate = require('../../utils/formatDate');
 
-export async function getStaticPaths() {
-  const postsDir = path.join(process.cwd(), 'content/blog');
-  const filenames = fs.readdirSync(postsDir).filter((n) => n.endsWith('.md'));
-  const paths = filenames.map((name) => ({
-    params: { slug: name.replace(/\.md$/, '') },
-  }));
-  return { paths, fallback: false };
-}
-
-function markdownToHtml(md) {
-  const lines = md.split('\n');
-  let skipNextH1 = true; // Skip the first H1 since it's shown in the header
-  
-  return lines
-    .map((line) => {
-      // Skip the first H1 header since we show it in the page header
-      if (line.startsWith('# ') && skipNextH1) {
-        skipNextH1 = false; // Only skip the first one
-        return '';
-      }
-      
-      // Headers
-      if (line.startsWith('# ')) return `<h1 class="text-4xl font-bold mb-6">${line.slice(2)}</h1>`;
-      if (line.startsWith('## ')) return `<h2 class="text-2xl font-semibold mt-8 mb-4">${line.slice(3)}</h2>`;
-      if (line.startsWith('### ')) return `<h3 class="text-xl font-semibold mt-6 mb-3">${line.slice(4)}</h3>`;
-      
-      // Horizontal Rule
-      if (line.startsWith('---')) return `<hr class="my-8 border-t border-gray-200" />`;
-      
-      // Emphasis
-      line = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      line = line.replace(/\*(.*?)\*/g, '<em>$1</em>');
-      
-      // Empty Lines
-      if (!line.trim()) return '';
-      
-      // Regular Paragraphs
-      return `<p class="mb-4 leading-relaxed text-gray-800">${line}</p>`;
-    })
-    .join('\n');
-}
-
-export async function getStaticProps({ params }) {
-  const filePath = path.join(process.cwd(), 'content/blog', `${params.slug}.md`);
-  const file = fs.readFileSync(filePath, 'utf8');
-  const { data, content } = matter(file);
-  const frontMatter = { ...data, date: String(data.date) };
-  const html = markdownToHtml(content);
-  return { props: { frontMatter, html } };
-}
-
-export default function PostPage({ frontMatter, html }) {
+function PostPage({ frontMatter = {}, html = '' }) {
   return (
     <Layout title={`${frontMatter.title} - Kavi Pather`}>
       <Container>
@@ -84,3 +34,35 @@ export default function PostPage({ frontMatter, html }) {
     </Layout>
   );
 }
+
+exports.getStaticPaths = async () => {
+  try {
+    const postsDir = path.join(process.cwd(), 'content/blog');
+    const filenames = fs.readdirSync(postsDir).filter(n => n.endsWith('.md'));
+    const paths = filenames.map((filename) => ({
+      params: { slug: filename.replace(/\.md$/, '') },
+    }));
+    return { paths, fallback: false };
+  } catch (error) {
+    console.error('Failed to generate static paths:', error);
+    return { paths: [], fallback: false };
+  }
+};
+
+exports.getStaticProps = async ({ params }) => {
+  try {
+    const filePath = path.join(process.cwd(), 'content/blog', `${params.slug}.md`);
+    const file = fs.readFileSync(filePath, 'utf8');
+    const { data, content } = matter(file);
+    const frontMatter = { ...data, date: String(data.date) };
+    const html = marked(content);
+    return { props: { frontMatter, html } };
+  } catch (error) {
+    console.error('Failed to load blog post:', error);
+    return {
+      notFound: true
+    };
+  }
+};
+
+module.exports = PostPage;

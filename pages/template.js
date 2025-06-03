@@ -1,8 +1,8 @@
-import Layout from '../components/Layout';
-import Container from '../components/Container';
+const Layout = require('../components/Layout');
+const Container = require('../components/Container');
 
 // Example of data fetching pattern (uncomment and modify as needed)
-// export async function getStaticProps() {
+// function getStaticProps() {
 //   return {
 //     props: {
 //       // Add your data here
@@ -10,7 +10,7 @@ import Container from '../components/Container';
 //   };
 // }
 
-export default function Template() {
+function Template() {
   return (
     <Layout title="Template - Kavi Pather" fullWidth>
       {/* Example of full-width content like an image */}
@@ -35,4 +35,6 @@ export default function Template() {
       </Container>
     </Layout>
   );
-} 
+}
+
+module.exports = Template; 
